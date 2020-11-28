@@ -58,7 +58,7 @@ ROOT_URLCONF = 'djoserApp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'build')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -80,7 +80,10 @@ WSGI_APPLICATION = 'djoserApp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME':'djoser',
+        'USER': 'postgres',
+        'PASSWORD': '12345',
+        'HOST': 'localhost'
     }
 }
 
@@ -122,6 +125,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'build/static')
+]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static' )
+
+# app = pkmzddrkegaoijlp
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'brainboyrichmond@gmail.com'
+EMAIL_HOST_PASSWORD =  'pkmzddrkegaoijlp'
+EMAIL_USE_TLS = True
 
 
 AUTH_USER_MODEL = 'accounts.UserAccount'
