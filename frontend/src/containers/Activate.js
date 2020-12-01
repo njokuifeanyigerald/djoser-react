@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Activate =(props) => (
+const Activate =() => (
     <div>
         Activate
     </div>
