@@ -8,34 +8,34 @@ const Login =({login}) => {
     const [formData, setFormData] = useState({
         email: '',
         password: ''
-    });
+    })
+    const {email,password} = formData;
 
-    const {email, password} = formData;
-    const onChange = e => setFormData({...FormData, [e.target.name]: e.target.value});
+    const onChange = e => setFormData({...formData, [e.target.name]: e.target.value})
 
     const onSubmit = e => {
-        e.preventDefault();
+        e.preventDefault()
         login(email,password)
-    };
+    }
 
     // Is the user authenticated?
     // Redirect them to the home page
 
     return (
         <div className='container mt-5'>
-            <h1>sign up</h1>
+            <h1>Login</h1>
             <p>Sign into your Account</p>
             <form onSubmit={e => onSubmit(e)}>
                 <div className="form-group">
                     <input className="form-control" type="email"
                         placeholder="Email" name="email" value={email}
-                        onChange={e => onChange(e)}
+                        onChange={e => onChange(e)} minLength='8'
                         required />
                 </div>
                 <div className="form-group">
                     <input className="form-control" type="password"
-                        placeholder="Password" name="password" value={password}
-                        onChange={e => onChange(e)}
+                        placeholder="Password" name="password" value={password} 
+                        onChange={e => onChange(e)}  minLength='8'
                         required />
                 </div>
                 <button className="btn btn-outline-primary" type="submit">Login</button>

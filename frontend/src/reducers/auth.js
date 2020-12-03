@@ -1,5 +1,6 @@
 import {
-    LOGIN_SUCCESS,USER_LOADED_FAIL,USER_LOADED_SUCCESS,LOGIN_FAIL
+    LOGIN_SUCCESS,USER_LOADED_FAIL,
+    USER_LOADED_SUCCESS,LOGIN_FAIL
 } from '../actions/types';
 
 const initialState =  {
@@ -9,16 +10,24 @@ const initialState =  {
     user: null
 }
 
-export default function(state =initialState,action) {
+export default function(state = initialState, action) {
     const {type, payload}  = action;
     switch(type){
+        // case LOGIN_SUCCESS:
+        //     localStorage.setItem('access', payload.access)
+        //     return{
+        //         ...state,
+        //         isAuthenticated: true,
+        //         access: payload.access,
+        //         refresh: payload.refresh
+        //     }
         case LOGIN_SUCCESS:
-            localStorage.setItem('access', payload.access)
-            return{
+            localStorage.setItem('access', payload.access);
+            return {
                 ...state,
                 isAuthenticated: true,
                 access: payload.access,
-                refresh:payload.refresh
+                refresh: payload.refresh
             }
         case USER_LOADED_SUCCESS:
             return{
@@ -31,13 +40,14 @@ export default function(state =initialState,action) {
                 user:null
             }
         case LOGIN_FAIL:
-            localStorage.removeItem('access', payload.access)
-            return{
+            localStorage.removeItem('access');
+            localStorage.removeItem('refresh');
+            return {
                 ...state,
                 access: null,
-                refresh:null,
-                isAuthenticated:null,
-                user:null
+                refresh: null,
+                isAuthenticated: false,
+                user: null
             }
         default:
             return state
