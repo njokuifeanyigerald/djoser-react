@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import {Link, Redirect} from 'react-router-dom';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
+import {login} from '../actions/auth';
 
 
-const Login =() => {
+const Login =({login}) => {
     const [formData, setFormData] = useState({
         email: '',
         password: ''
     });
 
-    const {email, password} = formData
+    const {email, password} = formData;
     const onChange = e => setFormData({...FormData, [e.target.name]: e.target.value});
 
     const onSubmit = e => {
         e.preventDefault();
-        // login email,password
+        login(email,password)
     };
 
     // Is the user authenticated?
@@ -48,5 +49,10 @@ const Login =() => {
         </div>
     );
     
-}
-export default Login;
+};
+
+// const mapStateToProps = state => {
+//     // is authenticated
+// }
+
+export default connect(null, {login})(Login);
