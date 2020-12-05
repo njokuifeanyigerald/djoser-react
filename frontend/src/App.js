@@ -10,6 +10,7 @@ import Signup from './containers/Signup';
 import Layout from './hocs/Layout';
 import {Provider} from 'react-redux';
 import store from './store'
+import notFound from './components/404'
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route exact path='/reset_password' component={ResetPassword}/>
             <Route exact path='/password/reset/confirm/:uid/:token' component={ResetPasswordConfirm}/>
             <Route exact path='/activate/:uid/:token' component={Activate}/>
+            <Route component={notFound} />
           </Switch>
         </Layout>
       </Router>
