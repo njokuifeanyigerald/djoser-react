@@ -6,8 +6,12 @@ import {
 } from '../actions/types';
 import axios from 'axios'
 
-
 export const checkAuthenticated = () => async dispatch => {
+    if (typeof window == 'undefined') {
+        dispatch({
+            type: AUTHENTICATED_FAIL
+        });
+    }
     if (localStorage.getItem('access')){
         const config = {
             headers: {
