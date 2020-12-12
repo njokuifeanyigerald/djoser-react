@@ -6,7 +6,11 @@ import {
     PASSWORD_CONFIRM_RESET_FAIL,
     PASSWORD_CONFIRM_RESET_SUCCESS,
     PASSWORD_RESET_FAIL,
-    PASSWORD_RESET_SUCCESS
+    PASSWORD_RESET_SUCCESS,
+    SIGNUP_FAIL,
+    SIGNUP_SUCCESS,
+    ACTIVATION_FAIL,
+    ACTIVATION_SUCCESS
 } from '../actions/types';
 import axios from 'axios'
 
@@ -69,7 +73,7 @@ export const load_user = () => async dispatch => {
     } else {
         dispatch({
             type:USER_LOADED_FAIL
-        })
+     9  })
     }
 };
 
@@ -99,6 +103,33 @@ export const login = (email, password) => async dispatch => {
     }
 };
 
+export const signup = (name, email, password, re_password) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+
+    const body = JSON.stringify({ email, password });
+
+    try {
+        const res = await axios.post('http://localhost:8000/auth/users/', body, config);
+
+        dispatch({
+            type: SIGNUP_SUCCESS,
+            payload: res.data
+        });
+
+        dispatch(load_user());
+    } catch (err) {
+        dispatch({
+            type: SIGNUP_FAIL
+        });
+    }
+};
+
+
+export const verify   = (uid, token)
 
 export const reset_password =(email) => async dispatch => {
     const config = {
