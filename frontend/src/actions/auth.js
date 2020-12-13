@@ -73,7 +73,7 @@ export const load_user = () => async dispatch => {
     } else {
         dispatch({
             type:USER_LOADED_FAIL
-     9  })
+       })
     }
 };
 
@@ -110,7 +110,7 @@ export const signup = (name, email, password, re_password) => async dispatch => 
         }
     };
 
-    const body = JSON.stringify({ email, password });
+    const body = JSON.stringify({ name,email, password , re_password});
 
     try {
         const res = await axios.post('http://localhost:8000/auth/users/', body, config);
@@ -119,8 +119,6 @@ export const signup = (name, email, password, re_password) => async dispatch => 
             type: SIGNUP_SUCCESS,
             payload: res.data
         });
-
-        dispatch(load_user());
     } catch (err) {
         dispatch({
             type: SIGNUP_FAIL
@@ -129,7 +127,26 @@ export const signup = (name, email, password, re_password) => async dispatch => 
 };
 
 
-export const verify   = (uid, token)
+export const verify   = (uid, token) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+    const body = JSON.stringify({uid,token})
+
+    try {
+        await axios.post('http://localhost:8000/auth/users/activation/', body, config);
+        dispatch({
+            type: ACTIVATION_SUCCESS
+        })
+    } catch (error) {
+        dispatch({
+            type: ACTIVATION_FAIL
+        })
+    }
+}
 
 export const reset_password =(email) => async dispatch => {
     const config = {
